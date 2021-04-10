@@ -5,7 +5,7 @@ const urlModule = require("url");
 const serverHandler = (req, res) => {
   const url = req.url;
   const method = req.method;
-  if(url.match(/\//)){
+  if(url==="/"){
      res.writeHead(200,{"content-type":"text/html"});
      res.end("<h1>please use the api routes to fetch the data</h1>");
      }
