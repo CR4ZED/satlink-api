@@ -41,6 +41,18 @@ const serverHandler = (req, res) => {
       res.end(JSON.stringify(content));
     });
   }
+ else if(url.match(/\/api\?norad=\d/){
+         norad = +urlModule.parse(url).query.split("=")[1];
+         filePath = path.join(__dirname, "dataset", "activeSatellites.txt");
+    res.writeHead(200, {
+      "content-type": "application/json",
+    });
+  fs.readFile(filePath, "utf-8", (err, data) => {
+      if (err) throw err;
+      content = JSON.parse(data).filter(item=>item.noradNumber=norad);
+      res.end(JSON.stringify(content));
+    });
+         } 
 };
 
 module.exports = { serverHandler };
