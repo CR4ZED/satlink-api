@@ -5,11 +5,10 @@ const urlModule = require("url");
 const serverHandler = (req, res) => {
   const url = req.url;
   const method = req.method;
-  if(url==="/"){
-     res.writeHead(200,{"content-type":"text/html"});
-     res.end("<h1>please use the api routes to fetch the data</h1>");
-     }
-  else if (url === "/api/active") {
+  if (url === "/") {
+    res.writeHead(200, { "content-type": "text/html" });
+    res.end("<h1>please use the api routes to fetch the data</h1>");
+  } else if (url === "/api/active") {
     filePath = path.join(__dirname, "dataset", "activeSatellites.txt");
     res.writeHead(200, {
       "content-type": "application/json",
@@ -37,22 +36,21 @@ const serverHandler = (req, res) => {
     });
     fs.readFile(filePath, "utf-8", (err, data) => {
       if (err) throw err;
-      content = JSON.parse(data).slice((pageNum - 1) * 10, pageNum * 10+2);
+      content = JSON.parse(data).slice((pageNum - 1) * 10, pageNum * 10 + 2);
       res.end(JSON.stringify(content));
     });
-  }
- else if(url.match(/\/api\/active\?norad=\d/)){
-         norad = +urlModule.parse(url).query.split("=")[1];
-         filePath = path.join(__dirname, "dataset", "activeSatellites.txt");
+  } else if (url.match(/\/api\/active\?norad=\d/)) {
+    norad = +urlModule.parse(url).query.split("=")[1];
+    filePath = path.join(__dirname, "dataset", "activeSatellites.txt");
     res.writeHead(200, {
       "content-type": "application/json",
     });
-  fs.readFile(filePath, "utf-8", (err, data) => {
+    fs.readFile(filePath, "utf-8", (err, data) => {
       if (err) throw err;
-      content = JSON.parse(data).filter(item=>item.noradNumber=norad);
+      content = JSON.parse(data).filter((item) => item.noradNumber == norad);
       res.end(JSON.stringify(content));
     });
-         } 
+  }
 };
 
 module.exports = { serverHandler };
