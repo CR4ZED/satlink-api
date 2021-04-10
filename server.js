@@ -5,12 +5,19 @@ const urlModule = require("url");
 const serverHandler = (req, res) => {
   const url = req.url;
   const method = req.method;
+  const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+  "Access-Control-Max-Age": 2592000, // 30 days
+  /** add other headers too */
+};
   if (url === "/") {
     res.writeHead(200, { "content-type": "text/html" });
     res.end("<h1>please use the api routes to fetch the data</h1>");
   } else if (url === "/api/active") {
     filePath = path.join(__dirname, "dataset", "activeSatellites.txt");
     res.writeHead(200, {
+      ...headers,
       "content-type": "application/json",
     });
     fs.readFile(filePath, "utf-8", (err, data) => {
@@ -21,6 +28,7 @@ const serverHandler = (req, res) => {
     limit = +urlModule.parse(url).query.split("=")[1];
     filePath = path.join(__dirname, "dataset", "activeSatellites.txt");
     res.writeHead(200, {
+      ...headers,
       "content-type": "application/json",
     });
     fs.readFile(filePath, "utf-8", (err, data) => {
@@ -32,6 +40,7 @@ const serverHandler = (req, res) => {
     pageNum = +urlModule.parse(url).query.split("=")[1];
     filePath = path.join(__dirname, "dataset", "activeSatellites.txt");
     res.writeHead(200, {
+      ...headers,
       "content-type": "application/json",
     });
     fs.readFile(filePath, "utf-8", (err, data) => {
@@ -43,6 +52,7 @@ const serverHandler = (req, res) => {
     norad = +urlModule.parse(url).query.split("=")[1];
     filePath = path.join(__dirname, "dataset", "activeSatellites.txt");
     res.writeHead(200, {
+      ...headers,
       "content-type": "application/json",
     });
     fs.readFile(filePath, "utf-8", (err, data) => {
