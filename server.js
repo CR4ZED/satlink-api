@@ -5,7 +5,11 @@ const urlModule = require("url");
 const serverHandler = (req, res) => {
   const url = req.url;
   const method = req.method;
-  if (url === "/api/active") {
+  if(url.match(/\//){
+     res.writeHead(200,{"content-type":"text/html"});
+     res.end("<h1>please use the api routes to fetch the data</h1>");
+     }
+  else if (url === "/api/active") {
     filePath = path.join(__dirname, "dataset", "activeSatellites.txt");
     res.writeHead(200, {
       "content-type": "application/json",
