@@ -37,7 +37,7 @@ const serverHandler = (req, res) => {
     });
     fs.readFile(filePath, "utf-8", (err, data) => {
       if (err) throw err;
-      content = JSON.parse(data).slice((pageNum - 1) * 10, pageNum * 10);
+      content = JSON.parse(data).slice((pageNum - 1) * 10, pageNum * 10+2);
       res.end(JSON.stringify(content));
     });
   }
