@@ -41,7 +41,7 @@ const serverHandler = (req, res) => {
       res.end(JSON.stringify(content));
     });
   }
- else if(url.match(/\/api\/active\?norad=\d+/)){
+ else if(url.match(/\/api\/active\?norad=\d/)){
          norad = +urlModule.parse(url).query.split("=")[1];
          filePath = path.join(__dirname, "dataset", "activeSatellites.txt");
     res.writeHead(200, {
