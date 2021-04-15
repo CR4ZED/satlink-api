@@ -60,7 +60,7 @@ const serverHandler = (req, res) => {
       content = JSON.parse(data).filter((item) => item.noradNumber == norad);
       res.end(JSON.stringify(content));
     });
-  }else if(url.match(/\/api\/all-active/){
+  }else if(url.match(/\/api\/all-active/)){
     filePath = path.join(__dirname, "dataset", "allActive.txt");
     res.writeHead(200, {
       ...headers,
