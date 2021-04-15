@@ -60,7 +60,18 @@ const serverHandler = (req, res) => {
       content = JSON.parse(data).filter((item) => item.noradNumber == norad);
       res.end(JSON.stringify(content));
     });
-  }
+  }else if(url.match(/\/api\/all-active/){
+    filePath = path.join(__dirname, "dataset", "allActive.txt");
+    res.writeHead(200, {
+      ...headers,
+      "content-type": "application/json",
+    });
+    fs.readFile(filePath, "utf-8", (err, data) => {
+      if (err) throw err;
+      content = JSON.parse(data).slice(0, limit);
+      res.end(JSON.stringify(content));
+    });
+           }
 };
 
 module.exports = { serverHandler };
