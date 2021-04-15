@@ -68,9 +68,9 @@ const serverHandler = (req, res) => {
     });
     fs.readFile(filePath, "utf-8", (err, data) => {
       if (err) throw err;
-      res.end(data);
+      res.end(JSON.stringify(data));
     });
-           }
+    }
 };
 
 module.exports = { serverHandler };
