@@ -22,7 +22,7 @@ const serverHandler = (req, res) => {
     });
     fs.readFile(filePath, "utf-8", (err, data) => {
       if (err) throw err;
-      res.end(JSON.stringify(data));
+      res.end(data);
     });
   } else if (url.match(/\/api\/active\?limit=\d/)) {
     limit = +urlModule.parse(url).query.split("=")[1];
@@ -34,7 +34,7 @@ const serverHandler = (req, res) => {
     fs.readFile(filePath, "utf-8", (err, data) => {
       if (err) throw err;
       content = JSON.parse(data).slice(0, limit);
-      res.end(JSON.stringify(content));
+      res.end(content);
     });
   } else if (url.match(/\/api\/active\?page=\d/)) {
     pageNum = +urlModule.parse(url).query.split("=")[1];
@@ -46,7 +46,7 @@ const serverHandler = (req, res) => {
     fs.readFile(filePath, "utf-8", (err, data) => {
       if (err) throw err;
       content = JSON.parse(data).slice((pageNum - 1) * 10, pageNum * 10 + 2);
-      res.end(JSON.stringify(content));
+      res.end(content);
     });
   } else if (url.match(/\/api\/active\?norad=\d/)) {
     norad = +urlModule.parse(url).query.split("=")[1];
@@ -58,7 +58,7 @@ const serverHandler = (req, res) => {
     fs.readFile(filePath, "utf-8", (err, data) => {
       if (err) throw err;
       content = JSON.parse(data).filter((item) => item.noradNumber == norad);
-      res.end(JSON.stringify(content));
+      res.end(content);
     });
   }else if(url.match(/\/api\/all-active/)){
     filePath = path.join(__dirname, "dataset", "allActive.txt");
