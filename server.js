@@ -73,4 +73,4 @@ const serverHandler = (req, res) => {
     }
 };
 
-module.exports = { serverHandler };
+module.exports = {serverHandler};
